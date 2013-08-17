@@ -1,0 +1,7 @@
+{
+  "name": "epf-shim",
+  "version": "0.1.3",
+  "main": [
+    "./epf.js"
+  ]
+}
