@@ -1,8 +1,8 @@
 # Ember.js Persistence Foundation
 
-[![Build Status](https://travis-ci.org/GroupTalent/epf.png)](https://travis-ci.org/GroupTalent/epf)
+[![Build Status](https://travis-ci.org/getoutreach/epf.png)](https://travis-ci.org/getoutreach/epf)
 
-Ember.js Persistence Foundation (epf) is a robust and stable framework for syncing client state with a persistent backend such as a REST API or socket connection. Defining characteristic of epf include:
+Ember.js Persistence Foundation (epf) is a robust and stable framework for syncing client state with a persistent backend such as a REST API or socket connection. Defining characteristics of epf include:
 
 * Correctness is paramount. All other features, including performance, are important, but secondary.
 * Built around synchronization. Models are never locked and framework semantics assume updates are always coming in from a backend.
@@ -19,7 +19,12 @@ For now, as epf is in development, follow the development instructions to use ep
 
 ## Getting Started
 
-By default, epf assumes that the backend is a REST api.
+### Your backend
+
+By default, epf assumes that the backend is a REST api which sticks to pretty much the same conventions as ember-data's RESTAdapter needs. There are a few differences however:
+
+* EPF sets a `client_id` in the JSON for every model and expects this to be echoed back by the server. It uses this to keep it's internal idmap up to date.
+* Related keys still need to use _id and _ids (this is different from ember-data 1.0 beta 2)
 
 ### Defining Models
 
@@ -41,7 +46,7 @@ The primary means of interacting with `epf` is through a `session`. Epf automati
 
 ```
 App.PostRoute = Ember.Route.extend({
-  
+
   model: function(params) {
     return this.session.load('post', params.post_id);
   }
@@ -53,7 +58,7 @@ For compatibility with the behavior of the Ember.js router, a `find` method is a
 
 ```
 App.PostRoute = Ember.Route.extend({
-  
+
   model: function(params) {
     return App.Post.find(params.post_id);
   }
@@ -141,8 +146,16 @@ childSession.flush(); // this will flush changes both to the backend and the par
 To build epf, follow the instructions below:
 
 * Install [node](http://nodejs.org/).
-* `git clone https://github.com/GroupTalent/epf`
+* `git clone https://github.com/getoutreach/epf`
 * `cd epf`
 * `npm install`
 * `npm test` to run the tests via `mocha`
-* To build a browser distributable, run the `build-browser` command in the repository root.
+* To build a browser distributable, run the `build-browser` command in the repository root with `ember-script build-browser` (make sure to install [ember-script](https://github.com/ghempton/ember-script) globally).
+
+
+## Discussion list
+
+You can [join the email discussion
+group](https://groups.google.com/forum/#!forum/ember-persistence-foundation) to get
+help, as well as discuss new features and directions for Epf.  Please post any questions,
+interesting things you discover or links to useful sites for Epf users.
